@@ -1,0 +1,186 @@
+/* ============================================================
+   BeFree Festival — Foundations
+   Colors, type, spacing, radii, shadows
+   ============================================================ */
+
+/* ---------- Type: Roc Grotesk (commercial) ----------
+   The brand specifies Roc Grotesk. It is a commercial Displaay
+   typeface and cannot be redistributed here, so the system loads
+   Hanken Grotesk + Archivo Black from Google Fonts as the closest
+   open-source visual match. Swap to real Roc Grotesk files when
+   licensed (drop .woff2 into /fonts and update the @font-face rule
+   below).
+----------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Hanken+Grotesk:wght@400;500;600;700;800;900&display=swap');
+
+/* When real Roc Grotesk files are available, uncomment + populate:
+@font-face {
+  font-family: 'Roc Grotesk';
+  src: url('fonts/RocGrotesk-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Roc Grotesk';
+  src: url('fonts/RocGrotesk-Heavy.woff2') format('woff2');
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+*/
+
+:root {
+  /* ---------- Brand color ---------- */
+  --bf-orange:        #f14702;   /* logo orange — primary brand */
+  --bf-orange-bg:     #e1582c;   /* background orange — surface */
+  --bf-orange-deep:   #c43904;   /* darker orange for press / hovered states */
+  --bf-orange-tint:   #ffe5d6;   /* warm cream tint for chips, hover */
+
+  /* ---------- Neutrals ---------- */
+  --bf-ink:           #0a0a0a;   /* near-black — wordmark, body text */
+  --bf-ink-soft:      #1a1a1a;   /* slightly softer black */
+  --bf-bone:          #f7efe2;   /* warm off-white — paper/cream surface */
+  --bf-paper:         #fffaf2;   /* lighter cream for cards on orange */
+  --bf-mute:          #8a8580;   /* muted text on bone */
+  --bf-line:          #0a0a0a;   /* default border = pure black, hand-drawn vibe */
+
+  /* ---------- Semantic surfaces ---------- */
+  --bf-surface:           var(--bf-bone);
+  --bf-surface-orange:    var(--bf-orange-bg);
+  --bf-surface-ink:       var(--bf-ink);
+  --bf-surface-paper:     var(--bf-paper);
+
+  /* ---------- Semantic text ---------- */
+  --bf-fg:            var(--bf-ink);
+  --bf-fg-on-orange:  var(--bf-ink);     /* black ON orange is signature */
+  --bf-fg-on-ink:     var(--bf-bone);
+  --bf-fg-mute:       var(--bf-mute);
+  --bf-fg-accent:     var(--bf-orange);
+
+  /* ---------- Type stacks ---------- */
+  --bf-font-display:  'Archivo Black', 'Roc Grotesk', 'Inter', system-ui, sans-serif;
+  --bf-font-body:     'Hanken Grotesk', 'Roc Grotesk', 'Inter', system-ui, sans-serif;
+  --bf-font-mono:     ui-monospace, 'JetBrains Mono', 'Menlo', monospace;
+
+  /* ---------- Type scale (display first) ---------- */
+  --bf-text-hero:     clamp(72px, 14vw, 220px);  /* festival-poster scale */
+  --bf-text-h1:       clamp(48px, 7vw, 96px);
+  --bf-text-h2:       clamp(36px, 5vw, 64px);
+  --bf-text-h3:       28px;
+  --bf-text-h4:       22px;
+  --bf-text-lead:     20px;
+  --bf-text-body:     16px;
+  --bf-text-small:    14px;
+  --bf-text-xs:       12px;
+  --bf-text-eyebrow:  13px; /* uppercase, tracked */
+
+  --bf-leading-tight:   0.92;
+  --bf-leading-display: 0.95;
+  --bf-leading-body:    1.45;
+
+  /* ---------- Spacing scale (4 → 96) ---------- */
+  --bf-s-1:  4px;
+  --bf-s-2:  8px;
+  --bf-s-3:  12px;
+  --bf-s-4:  16px;
+  --bf-s-5:  24px;
+  --bf-s-6:  32px;
+  --bf-s-7:  48px;
+  --bf-s-8:  64px;
+  --bf-s-9:  96px;
+
+  /* ---------- Radii ----------
+     BeFree is a hand-drawn, sticker-style brand. Defaults are CHUNKY,
+     never delicate. */
+  --bf-r-sm:   6px;
+  --bf-r-md:   12px;
+  --bf-r-lg:   20px;
+  --bf-r-xl:   32px;
+  --bf-r-pill: 999px;
+
+  /* ---------- Borders ---------- */
+  --bf-bw-1:   2px;
+  --bf-bw-2:   3px;
+  --bf-bw-3:   4px;   /* default chunky border */
+
+  /* ---------- Shadows / offsets ----------
+     The system uses HARD offsets (not soft shadows) — flat black
+     drop shadows that read like printed stickers. */
+  --bf-shadow-sticker:   4px 4px 0 0 var(--bf-ink);
+  --bf-shadow-sticker-lg: 8px 8px 0 0 var(--bf-ink);
+  --bf-shadow-soft:      0 12px 32px -8px rgba(10,10,10,0.18);
+
+  /* ---------- Motion ---------- */
+  --bf-ease:        cubic-bezier(0.2, 0.8, 0.2, 1);
+  --bf-ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --bf-dur-fast:    140ms;
+  --bf-dur-base:    220ms;
+  --bf-dur-slow:    420ms;
+}
+
+/* ============================================================
+   Semantic element styles
+   ============================================================ */
+
+body {
+  font-family: var(--bf-font-body);
+  color: var(--bf-fg);
+  background: var(--bf-surface);
+  font-size: var(--bf-text-body);
+  line-height: var(--bf-leading-body);
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--bf-font-display);
+  font-weight: 900;
+  color: var(--bf-fg);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: var(--bf-leading-display);
+  margin: 0;
+}
+
+h1 { font-size: var(--bf-text-h1); line-height: var(--bf-leading-tight); letter-spacing: -0.02em; }
+h2 { font-size: var(--bf-text-h2); line-height: var(--bf-leading-tight); letter-spacing: -0.02em; }
+h3 { font-size: var(--bf-text-h3); }
+h4 { font-size: var(--bf-text-h4); }
+
+.bf-hero {
+  font-family: var(--bf-font-display);
+  font-size: var(--bf-text-hero);
+  line-height: var(--bf-leading-tight);
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.bf-eyebrow {
+  font-family: var(--bf-font-body);
+  font-size: var(--bf-text-eyebrow);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.bf-lead {
+  font-size: var(--bf-text-lead);
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+p { margin: 0 0 var(--bf-s-4) 0; }
+small, .bf-small { font-size: var(--bf-text-small); }
+
+code, kbd, pre {
+  font-family: var(--bf-font-mono);
+  font-size: 0.92em;
+}
+
+a {
+  color: var(--bf-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--bf-orange);
+  transition: color var(--bf-dur-fast) var(--bf-ease);
+}
+a:hover { color: var(--bf-orange); }
