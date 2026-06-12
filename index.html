@@ -1192,9 +1192,17 @@ body { color: var(--bf-ink); overflow-x: clip; max-width: 100%; }
   .bf-nav { padding: 8px 8px 8px 16px; }
 }
 @media (max-width: 760px) {
-  .bf-about { grid-template-columns: 1fr; gap: 32px; }
+  .bf-about { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .bf-friends__inner, .bf-sponsors__inner { grid-template-columns: minmax(0, 1fr); }
   .bf-info-grid { grid-template-columns: 1fr; }
   .bf-section { padding: 64px 20px; }
+
+  /* Headings must never get cut off — cap size + allow long words to break */
+  h1, h2, h3, h4 { overflow-wrap: break-word; word-break: break-word; }
+  .bf-about__head h2 { font-size: clamp(38px, 11vw, 56px); }
+  .bf-section__head h2 { font-size: clamp(36px, 10vw, 54px); }
+  .bf-vibe__head h2 { font-size: clamp(34px, 9.5vw, 50px); }
+  .bf-friends h2 { font-size: clamp(44px, 12vw, 80px); }
 
   /* Hero */
   .bf-hero { padding: 92px 20px 56px; min-height: 0; }
@@ -1248,6 +1256,11 @@ body { color: var(--bf-ink); overflow-x: clip; max-width: 100%; }
   .bf-hero__title { font-size: clamp(54px, 17vw, 92px); }
   .bf-hero__sticker--big { display: none; }
   .bf-count__num { font-size: 24px; }
+  .bf-about__head h2 { font-size: clamp(34px, 10vw, 44px); }
+  .bf-section__head h2 { font-size: clamp(32px, 9.5vw, 44px); }
+  .bf-vibe__head h2 { font-size: clamp(30px, 9vw, 40px); }
+  .bf-friends h2 { font-size: clamp(40px, 12vw, 64px); }
+  .bf-info-card h3 { font-size: 26px; }
 }
 
   </style>
