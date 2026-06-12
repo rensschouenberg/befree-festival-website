@@ -561,8 +561,8 @@ a { cursor: pointer; }
 
 /* BeFree Festival website — extras on top of kit.css */
 
-html { scroll-behavior: smooth; }
-body { color: var(--bf-ink); }
+html { scroll-behavior: smooth; overflow-x: clip; }
+body { color: var(--bf-ink); overflow-x: clip; max-width: 100%; }
 
 /* ---------- Layout helper ---------- */
 .bf-container { max-width: 1280px; margin: 0 auto; }
@@ -1142,31 +1142,112 @@ body { color: var(--bf-ink); }
 .bf-photo--placeholder { display: flex; align-items: center; justify-content: center; padding: 18px; }
 .bf-photo--placeholder svg { width: 100%; height: 100%; }
 
+/* ---------- Nav: right cluster + mobile menu ---------- */
+.bf-nav__right { display: flex; align-items: center; gap: 10px; }
+.bf-nav__toggle {
+  display: none;
+  width: 48px; height: 48px;
+  border: 3px solid var(--bf-ink);
+  border-radius: 999px;
+  background: var(--bf-paper);
+  align-items: center; justify-content: center;
+  color: var(--bf-ink);
+  flex-shrink: 0;
+}
+.bf-nav__toggle:active { background: var(--bf-orange-tint); }
+.bf-nav__mobile {
+  max-width: 1280px;
+  margin: 10px auto 0;
+  background: var(--bf-paper);
+  border: 3px solid var(--bf-ink);
+  border-radius: 26px;
+  box-shadow: var(--bf-shadow-sticker);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.bf-nav__mobile a:not(.bf-btn) {
+  font-family: var(--bf-font-display);
+  text-transform: uppercase;
+  font-size: 22px;
+  letter-spacing: 0.01em;
+  color: var(--bf-ink);
+  text-decoration: none;
+  padding: 12px 14px;
+  border-radius: 14px;
+}
+.bf-nav__mobile a:not(.bf-btn).is-active { color: var(--bf-orange); }
+.bf-nav__mobile a:not(.bf-btn):active { background: var(--bf-orange-tint); }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 1080px) {
   .bf-info-grid { grid-template-columns: repeat(2, 1fr); }
   .bf-friends__inner { grid-template-columns: 1fr; }
   .bf-sponsors__inner { grid-template-columns: 1fr; }
 }
+@media (max-width: 860px) {
+  .bf-nav__toggle { display: inline-flex; }
+  .bf-nav__cta { display: none; }
+  .bf-nav { padding: 8px 8px 8px 16px; }
+}
 @media (max-width: 760px) {
   .bf-about { grid-template-columns: 1fr; gap: 32px; }
   .bf-info-grid { grid-template-columns: 1fr; }
   .bf-section { padding: 64px 20px; }
-  .bf-hero { padding: 100px 20px 64px; }
-  .bf-schedule__head, .bf-gig { grid-template-columns: 110px 1fr 32px; }
-  .bf-gig__stage { display: none; }
-  .bf-schedule__head span:nth-child(3) { display: none; }
-  .bf-gig__time { font-size: 18px; flex-direction: column; gap: 0; }
+
+  /* Hero */
+  .bf-hero { padding: 92px 20px 56px; min-height: 0; }
+  .bf-hero__title { font-size: clamp(64px, 18vw, 120px); margin: 12px 0 22px; }
+  .bf-hero__meta { font-size: 13px; padding: 10px 16px; }
+  .bf-hero__sticker--big { width: 150px; right: -26px; top: 78px; }
+  .bf-hero__sticker--sm { width: 78px; left: auto; right: 8%; bottom: 6%; }
+  .bf-hero__count {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    width: 100%;
+    margin-top: 28px;
+  }
+  .bf-count { padding: 10px 4px; }
+  .bf-count__num { font-size: 28px; }
+  .bf-count__lab { font-size: 9px; letter-spacing: 0.06em; }
+  .bf-hero__actions { width: 100%; }
+  .bf-hero__actions .bf-btn { flex: 1 1 auto; }
+
+  /* Schedule → clean 2-column on phones */
+  .bf-schedule__head, .bf-gig { grid-template-columns: 92px 1fr; }
+  .bf-schedule__head span:nth-child(3),
+  .bf-schedule__head span:nth-child(4) { display: none; }
+  .bf-gig > div:nth-child(3),
+  .bf-gig > div:nth-child(4) { display: none; }
+  .bf-gig__time { font-size: 20px; flex-direction: column; gap: 0; align-items: flex-start; }
   .bf-gig__time-end { font-size: 13px; }
-  .bf-gig__name { font-size: 20px; }
+  .bf-gig__name { font-size: 21px; }
+  .bf-schedule__foot { flex-direction: column; gap: 10px; align-items: flex-start; text-align: left; }
+
+  /* Gallery */
   .bf-gallery { grid-template-columns: repeat(6, 1fr); grid-auto-rows: 140px; }
-  .bf-photo--big { grid-column: span 6; }
+  .bf-photo--big { grid-column: span 6; grid-row: span 2; }
   .bf-photo--wide { grid-column: span 6; }
-  .bf-photo--tall { grid-column: span 3; }
+  .bf-photo--tall { grid-column: span 3; grid-row: span 2; }
   .bf-photo--sm { grid-column: span 3; }
-  .bf-photo--sq { grid-column: span 3; }
+  .bf-photo--sq { grid-column: span 3; grid-row: span 2; }
   .bf-photo--rect { grid-column: span 3; }
   .bf-vibe__head { flex-direction: column; align-items: flex-start; }
+
+  /* Marquee a touch smaller on phones */
+  .bf-strip { padding: 12px 0; }
+  .bf-strip__track { font-size: 24px; }
+
+  /* Friends + footer */
+  .bf-friends__card { transform: none; }
+  .bf-footer__bottom { flex-direction: column; gap: 8px; text-align: center; justify-content: center; }
+}
+@media (max-width: 420px) {
+  .bf-hero__title { font-size: clamp(54px, 17vw, 92px); }
+  .bf-hero__sticker--big { display: none; }
+  .bf-count__num { font-size: 24px; }
 }
 
   </style>
@@ -1240,6 +1321,7 @@ function Icon({ name, size = 18 }) {
     case 'edit':        return <svg {...props}><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>;
     case 'plus':        return <svg {...props}><path d="M12 5v14M5 12h14"/></svg>;
     case 'close':       return <svg {...props}><path d="M18 6 6 18M6 6l12 12"/></svg>;
+    case 'menu':        return <svg {...props}><path d="M3 12h18M3 6h18M3 18h18"/></svg>;
     case 'trash':       return <svg {...props}><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14z"/></svg>;
     case 'upload':      return <svg {...props}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>;
     case 'instagram':   return <svg {...props}><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>;
@@ -1405,6 +1487,7 @@ function Marquee({ items, dark = false, tilt = 0 }) {
 }
 
 function NavBar({ active, onNav, onTickets }) {
+  const [open, setOpen] = React.useState(false);
   const links = [
     { id: 'over',      label: 'Over' },
     { id: 'sfeer',     label: 'Sfeer' },
@@ -1412,10 +1495,11 @@ function NavBar({ active, onNav, onTickets }) {
     { id: 'lineup',    label: 'Line-up' },
     { id: 'befriends', label: 'BeFriends' },
   ];
+  const go = (id) => { setOpen(false); onNav(id); };
   return (
     <div className="bf-nav-wrap">
       <nav className="bf-nav">
-        <a className="bf-nav__brand" href="#top" onClick={(e) => { e.preventDefault(); onNav('top'); }}>
+        <a className="bf-nav__brand" href="#top" onClick={(e) => { e.preventDefault(); go('top'); }}>
           <img src={window.LOGO_SRC} alt="BeFree" style={{ width: 46, height: 46, objectFit: 'contain' }} />
         </a>
         <div className="bf-nav__links">
@@ -1424,16 +1508,43 @@ function NavBar({ active, onNav, onTickets }) {
               key={l.id}
               href={'#' + l.id}
               className={active === l.id ? 'is-active' : ''}
-              onClick={(e) => { e.preventDefault(); onNav(l.id); }}
+              onClick={(e) => { e.preventDefault(); go(l.id); }}
             >
               {l.label}
             </a>
           ))}
         </div>
-        <a className="bf-btn bf-btn--primary" href="#lineup" onClick={(e) => { e.preventDefault(); onNav('lineup'); }}>
-          Line-up <Icon name="arrow" size={16} />
-        </a>
+        <div className="bf-nav__right">
+          <a className="bf-btn bf-btn--primary bf-nav__cta" href="#lineup" onClick={(e) => { e.preventDefault(); go('lineup'); }}>
+            Line-up <Icon name="arrow" size={16} />
+          </a>
+          <button
+            className="bf-nav__toggle"
+            aria-label="Menu"
+            aria-expanded={open}
+            onClick={() => setOpen(o => !o)}
+          >
+            <Icon name={open ? 'close' : 'menu'} size={22} />
+          </button>
+        </div>
       </nav>
+      {open && (
+        <div className="bf-nav__mobile">
+          {links.map(l => (
+            <a
+              key={l.id}
+              href={'#' + l.id}
+              className={active === l.id ? 'is-active' : ''}
+              onClick={(e) => { e.preventDefault(); go(l.id); }}
+            >
+              {l.label}
+            </a>
+          ))}
+          <a className="bf-btn bf-btn--primary" href="#lineup" onClick={(e) => { e.preventDefault(); go('lineup'); }} style={{ marginTop: 6 }}>
+            Bekijk de line-up <Icon name="arrow" size={16} />
+          </a>
+        </div>
+      )}
     </div>
   );
 }
@@ -1583,7 +1694,7 @@ function InfoSection() {
       body: (
         <>
           Op het terrein vind je verschillende eetgelegenheden met diverse gerechten en een ruim
-          aanbod aan <strong>drankjes</strong>. Lokale ondernemers, eerlijke prijzen.
+          aanbod aan <strong>drankjes</strong>. Eerlijke prijzen.
         </>
       ),
     },
@@ -1688,7 +1799,6 @@ function Footer() {
           <div className="bf-footer__col bf-footer__contact">
             <span className="bf-eyebrow">Contact</span>
             <a href="mailto:info@befreefest.nl"><span className="label">E-mail</span>info@befreefest.nl</a>
-            <a href="tel:+31000000000"><span className="label">Telefoon</span>nog toe te voegen</a>
           </div>
           <div className="bf-footer__col">
             <span className="bf-eyebrow">Volg ons</span>
@@ -2278,7 +2388,7 @@ function App() {
         />
 
         <Marquee
-          items={['Achter het Wereldpaviljoen', '14:00 — 00:00', 'Eén dag, twee podia', 'Een hoop bier']}
+          items={['Achter het Wereldpaviljoen', '14:00 — 00:00', 'Een hoop bier']}
           tilt={1.2}
           dark
         />
