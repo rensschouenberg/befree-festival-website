@@ -1200,7 +1200,11 @@ body { color: var(--bf-ink); overflow-x: clip; max-width: 100%; }
   display: flex;
   gap: 24px;
   align-items: flex-start;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 220ms cubic-bezier(0.2,0.8,0.2,1), box-shadow 220ms cubic-bezier(0.2,0.8,0.2,1);
 }
+.bf-partner-card:hover { transform: translate(-2px, -2px); box-shadow: 10px 10px 0 0 var(--bf-orange); }
 .bf-partner-card__logo {
   flex: 0 0 140px;
   width: 140px;
@@ -1867,7 +1871,7 @@ function Partners() {
       </div>
       <div className="bf-partners-grid">
         {partners.map((p, i) => (
-          <div className="bf-partner-card" key={i}>
+          <a className="bf-partner-card" key={i} href="https://arton.eu/" target="_blank" rel="noopener noreferrer">
             <div className="bf-partner-card__logo">
               <img src={p.logo} alt={p.name} />
             </div>
@@ -1876,7 +1880,7 @@ function Partners() {
               <p>{p.blurb}</p>
               <span className="bf-partner-card__thanks">BeFree Festival bedankt {p.name} voor de steun!</span>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </section>
